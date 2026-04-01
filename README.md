@@ -1,48 +1,122 @@
-🗂️ Task Manager App (Full Stack)
+# 🗂️ Task Manager App (Full Stack)
 
-A production-ready full-stack Task Management Application built with modern technologies, featuring authentication, scalable architecture, and clean code practices.
+![Node.js](https://img.shields.io/badge/Node.js-green)
+![Express.js](https://img.shields.io/badge/Express.js-black)
+![Prisma](https://img.shields.io/badge/Prisma-ORM-blue)
+![MySQL](https://img.shields.io/badge/MySQL-database-orange)
+![React](https://img.shields.io/badge/React-19-blue)
+![TypeScript](https://img.shields.io/badge/TypeScript-blue)
+![Redux Toolkit](https://img.shields.io/badge/Redux-Toolkit-purple)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-cyan)
+![JWT](https://img.shields.io/badge/Auth-JWT-yellow)
 
-🚀 Tech Stack
-🖥️ Backend
-Node.js
-Express.js
-Prisma ORM
-MySQL
-TypeScript
-JWT Authentication
-Zod Validation
-🌐 Frontend
-React 19 + TypeScript (Vite)
+A full-stack **Task Management Application** built with modern technologies:
+
+* ⚛️ **Frontend**: React 19 + TypeScript + Vite + Tailwind + Redux Toolkit  
+* 🚀 **Backend**: Node.js + Express + Prisma + MySQL  
+* 🔐 Authentication using JWT  
+* 📦 Clean architecture with scalable structure  
+
+---
+
+## 🚀 Project Overview
+
+This project demonstrates a **production-style full-stack setup** including:
+
+* Authentication system (JWT-based)
+* Scalable frontend architecture (Redux Toolkit + RTK Query)
+* Backend API with Prisma ORM and MySQL
+* Form validation using Zod
+* Modern UI using Tailwind + shadcn/ui
+
+---
+
+## 📁 Project Structure
+
+```bash
+task-manager-app/
+│
+├── task-manager-frontend/   # React + Vite + TypeScript
+├── task-manager-backend/    # Node + Express + Prisma
+│
+└── README.md
+⚛️ Frontend Setup
+🛠 Tech Stack
+React 19 + TypeScript
+Vite
 Tailwind CSS
 Redux Toolkit + RTK Query
+React Router DOM
 Axios
-React Hook Form + Zod
+Zod
 shadcn/ui
-📁 Project Structure
-task-manager/
-│
-├── backend/
-│   ├── prisma/
-│   ├── src/
-│   ├── generated/
-│   ├── .env
-│   └── package.json
-│
-├── frontend/
-│   ├── src/
-│   ├── public/
-│   └── package.json
-⚙️ Backend Setup
-1️⃣ Initialize Project
+lucide-react (icons)
+⚙️ Installation & Setup
+1. Create Project
+npm create vite@latest task-manager-frontend -- --template react-ts
+cd task-manager-frontend
+npm install
+2. Install Tailwind
+npm install tailwindcss @tailwindcss/vite
+Update vite.config.ts
+import tailwindcss from '@tailwindcss/vite'
+
+export default defineConfig({
+  plugins: [react(), tailwindcss()],
+})
+Update src/index.css
+@import "tailwindcss";
+3. Install Dependencies
+npm install react-router-dom
+npm install lucide-react
+npm install @reduxjs/toolkit react-redux redux-persist
+npm install axios
+npm install react-hook-form @hookform/resolvers zod
+4. Setup shadcn/ui
+Add path alias
+
+tsconfig.json
+
+"compilerOptions": {
+  "baseUrl": ".",
+  "paths": {
+    "@/*": ["src/*"]
+  }
+}
+
+tsconfig.app.json
+
+"compilerOptions": {
+  "paths": {
+    "@/*": ["./src/*"]
+  }
+}
+npx shadcn@latest init
+5. Run Frontend
+npm run dev
+📌 Frontend Architecture Highlights
+Redux Store → src/_redux/store.ts
+Typed Hooks → src/_redux/hooks.ts
+API Layer → src/_api/index.ts
+Auth Slice → src/pages/auth/slice/index.tsx
+🚀 Backend Setup
+🛠 Tech Stack
+Node.js + Express
+TypeScript
+Prisma ORM
+MySQL
+JWT Authentication
+Zod (validation)
+⚙️ Installation & Setup
+1. Initialize Project
 npm init -y
-2️⃣ Install Dependencies
-npm install typescript tsx @types/node --save-dev
+2. Install Dependencies
+npm install express cors cookie-parser bcrypt jsonwebtoken dotenv
 npm install prisma --save-dev
-npm install @prisma/client @prisma/adapter-mariadb dotenv
-npm install express cors cookie-parser
-npm install bcrypt jsonwebtoken
+npm install @prisma/client @prisma/adapter-mariadb
 npm install zod http-status-codes
-3️⃣ Setup TypeScript
+npm install -D typescript tsx @types/node @types/express @types/cors @types/cookie-parser @types/bcrypt @types/jsonwebtoken
+3. Setup TypeScript
 npx tsc --init
 
 Update tsconfig.json:
@@ -56,82 +130,57 @@ Update tsconfig.json:
     "esModuleInterop": true
   }
 }
-4️⃣ Prisma Setup
+4. Prisma Setup
 npx prisma init --datasource-provider mysql --output ../generated/prisma
-.env
+5. Environment Variables
+
+Create .env:
+
 DATABASE_URL="mysql://root:password@localhost:3306/task_manager"
 PORT=3000
 JWT_SECRET=supersecretjwtkey
-5️⃣ Run Migration
+6. Run Migration
 npx prisma migrate dev --name init
 npx prisma generate
-6️⃣ Start Server
+7. Run Backend
 npm run dev
-🌐 Frontend Setup
-1️⃣ Create Project
-npm create vite@latest task-manager-frontend -- --template react-ts
+📌 Backend Features
+Prisma Client for type-safe queries
+MySQL integration
+JWT-based authentication
+Middleware (CORS, cookies, JSON parsing)
+Scalable API structure
+🔐 Authentication Flow
+User logs in via frontend
+Backend validates credentials
+JWT token is generated
+Token stored (cookies/localStorage)
+Protected routes verified
+User accesses dashboard
+▶️ Running Full Project
+Start Backend
+cd task-manager-backend
+npm run dev
+Start Frontend
 cd task-manager-frontend
-npm install
-2️⃣ Install Dependencies
-npm install tailwindcss @tailwindcss/vite
-npm install react-router-dom@6
-npm install lucide-react
-npm install @reduxjs/toolkit react-redux redux-persist
-npm install axios
-npm install react-hook-form @hookform/resolvers zod
-3️⃣ Setup Tailwind
-
-vite.config.ts
-
-import tailwindcss from '@tailwindcss/vite'
-
-export default defineConfig({
-  plugins: [react(), tailwindcss()],
-})
-
-index.css
-
-@import "tailwindcss";
-4️⃣ Setup shadcn/ui
-npx shadcn@latest init
-
-Optional components:
-
-npx shadcn@latest add card
-npx shadcn@latest add input
-npx shadcn@latest add sonner
-5️⃣ Start Frontend
 npm run dev
-🔐 Features
-✅ JWT Authentication (Login/Register)
-✅ Secure Password Hashing (bcrypt)
-✅ REST API with Express
-✅ Prisma ORM with MySQL
-✅ Global State with Redux Toolkit
-✅ API Caching with RTK Query
-✅ Form Validation using Zod
-✅ Clean & Scalable Architecture
-📡 API Structure (Example)
-POST   /auth/register
-POST   /auth/login
-GET    /auth/me
-🧠 Architecture Highlights
-Modular folder structure
-Separation of concerns
-Prisma for type-safe DB queries
-RTK Query for API caching
-Axios base query abstraction
-🛠️ Development Scripts
-Backend
-npm run dev
-Frontend
-npm run dev
-📌 Future Improvements
-Role-based authentication
-Task CRUD features
-Pagination & filtering
+📈 Future Improvements
+Task CRUD APIs
+Role-based access control
+Refresh tokens
 Docker setup
 CI/CD pipeline
-👨‍💻 Author
+🎯 Key Learning Outcomes
+Full-stack architecture design
+State management with Redux Toolkit
+API handling with RTK Query
+Authentication flow (JWT)
+Database handling with Prisma
+Clean and scalable structure
+📄 License
+
+This project is open-source and free to use for learning purposes.
+
+🙌 Author
 
 Sharad Gupta
