@@ -14,7 +14,7 @@ A full-stack **Task Management Application** built with modern technologies:
 
 * ⚛️ **Frontend**: React 19 + TypeScript + Vite + Tailwind + Redux Toolkit
 * 🚀 **Backend**: Node.js + Express + Prisma + MySQL
-* 🔐 Authentication using JWT
+* 🔐 Authentication using JWT (HttpOnly Cookies)
 * 📦 Clean architecture with scalable structure
 
 ---
@@ -23,11 +23,52 @@ A full-stack **Task Management Application** built with modern technologies:
 
 This project demonstrates a **production-style full-stack setup** including:
 
-* JWT-based authentication system
+* Secure authentication system (JWT + HttpOnly cookies)
 * Scalable frontend architecture using Redux Toolkit + RTK Query
 * Backend API built with Express and Prisma ORM
 * Form validation using Zod
 * Modern UI using Tailwind CSS and shadcn/ui
+
+---
+
+## 🛠 Tech Stack
+
+### ⚛️ Frontend
+
+* React 19 + TypeScript
+* Vite
+* Tailwind CSS
+* shadcn/ui
+* React Router DOM
+* Redux Toolkit + RTK Query
+* Axios
+* React Hook Form
+* Zod
+* lucide-react
+
+---
+
+### 🚀 Backend
+
+* Node.js
+* Express.js
+* Prisma ORM
+* MySQL
+* JWT (HttpOnly Cookies)
+* bcrypt
+* Zod
+* cookie-parser
+* CORS
+* dotenv
+
+---
+
+### ⚙️ Development & Tooling
+
+* TypeScript
+* tsx
+* Prisma CLI
+* ES Modules (ESM)
 
 ---
 
@@ -46,20 +87,6 @@ task-manager-app/
 
 # ⚛️ Frontend Setup
 
-## 🛠 Tech Stack
-
-* React 19 + TypeScript
-* Vite
-* Tailwind CSS
-* Redux Toolkit + RTK Query
-* React Router DOM
-* Axios
-* Zod
-* shadcn/ui
-* lucide-react (icons)
-
----
-
 ## ⚙️ Installation & Setup
 
 ### 1. Create Project
@@ -72,33 +99,10 @@ npm install
 
 ---
 
-### 2. Install Tailwind
+### 2. Install Dependencies
 
 ```bash
 npm install tailwindcss @tailwindcss/vite
-```
-
-#### Update `vite.config.ts`
-
-```ts
-import tailwindcss from '@tailwindcss/vite'
-
-export default defineConfig({
-  plugins: [react(), tailwindcss()],
-})
-```
-
-#### Update `src/index.css`
-
-```css
-@import "tailwindcss";
-```
-
----
-
-### 3. Install Dependencies
-
-```bash
 npm install react-router-dom
 npm install lucide-react
 npm install @reduxjs/toolkit react-redux redux-persist
@@ -108,9 +112,27 @@ npm install react-hook-form @hookform/resolvers zod
 
 ---
 
-### 4. Setup shadcn/ui
+### 3. Setup Tailwind
 
-#### Add path alias
+**vite.config.ts**
+
+```ts
+import tailwindcss from '@tailwindcss/vite'
+
+export default defineConfig({
+  plugins: [react(), tailwindcss()],
+})
+```
+
+**src/index.css**
+
+```css
+@import "tailwindcss";
+```
+
+---
+
+### 4. Setup shadcn/ui
 
 **tsconfig.json**
 
@@ -119,16 +141,6 @@ npm install react-hook-form @hookform/resolvers zod
   "baseUrl": ".",
   "paths": {
     "@/*": ["src/*"]
-  }
-}
-```
-
-**tsconfig.app.json**
-
-```json
-"compilerOptions": {
-  "paths": {
-    "@/*": ["./src/*"]
   }
 }
 ```
@@ -157,17 +169,6 @@ npm run dev
 ---
 
 # 🚀 Backend Setup
-
-## 🛠 Tech Stack
-
-* Node.js + Express
-* TypeScript
-* Prisma ORM
-* MySQL
-* JWT Authentication
-* Zod (validation)
-
----
 
 ## ⚙️ Installation & Setup
 
@@ -254,7 +255,7 @@ npm run dev
 
 * Prisma Client for type-safe queries
 * MySQL integration
-* JWT-based authentication
+* JWT authentication with HttpOnly cookies
 * Middleware (CORS, cookies, JSON parsing)
 * Scalable API structure
 
@@ -265,7 +266,7 @@ npm run dev
 1. User logs in via frontend
 2. Backend validates credentials
 3. JWT token is generated
-4. Token stored (cookies/localStorage)
+4. Token stored in HttpOnly cookie
 5. Protected routes verified
 6. User accesses dashboard
 
@@ -304,7 +305,7 @@ npm run dev
 * Full-stack architecture design
 * State management with Redux Toolkit
 * API handling with RTK Query
-* Authentication flow (JWT)
+* Authentication flow (JWT + cookies)
 * Database handling with Prisma
 * Clean and scalable structure
 
