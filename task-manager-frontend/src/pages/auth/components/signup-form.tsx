@@ -8,11 +8,14 @@ import { type SignupFromValue, signupSchema } from "../core/constants";
 import { Link, useNavigate } from "react-router-dom";
 import { useSignupMutation } from "../api";
 import { toast } from "sonner";
+import { useState } from "react";
+import { Eye, EyeOff, Lock, Mail, UserCircle2 } from "lucide-react";
 
 export default function SignupForm() {
     const [signup, { isLoading }] = useSignupMutation();
     const navigate = useNavigate();
-
+    const [showPassword, setShowPassowd] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassowd] = useState(false);
 
     const form = useForm<SignupFromValue>({
         resolver: zodResolver(signupSchema),
@@ -58,13 +61,19 @@ export default function SignupForm() {
                                     render={({ field, fieldState }) =>
                                         <Field data-invalid={fieldState.invalid}>
                                             <FieldLabel htmlFor="username">Username<span className="text-red-500">*</span></FieldLabel>
-                                            <Input
-                                                {...field}
-                                                id="username"
-                                                autoComplete="off"
-                                                placeholder="John Doe"
-                                                aria-invalid={fieldState.invalid}
-                                            />
+                                            <div className="relative flex items-center">
+                                                <UserCircle2
+                                                    className="size-4.5 absolute left-2 text-gray-500"
+                                                />
+                                                <Input
+                                                    {...field}
+                                                    id="username"
+                                                    autoComplete="off"
+                                                    placeholder="John Doe"
+                                                    aria-invalid={fieldState.invalid}
+                                                    className="pl-8"
+                                                />
+                                            </div>
                                             {fieldState.error && (
                                                 <FieldError> {fieldState.error.message}</FieldError>
                                             )}
@@ -77,13 +86,20 @@ export default function SignupForm() {
                                     render={({ field, fieldState }) =>
                                         <Field data-invalid={fieldState.invalid}>
                                             <FieldLabel htmlFor="email">Email<span className="text-red-500">*</span></FieldLabel>
-                                            <Input
-                                                {...field}
-                                                id="email"
-                                                autoComplete="off"
-                                                placeholder="abc@abc.com"
-                                                aria-invalid={fieldState.invalid}
-                                            />
+                                            <div className="relative flex items-center">
+                                                <Mail
+                                                    className="size-4.5 absolute left-2 text-gray-500"
+                                                />
+                                                <Input
+                                                    {...field}
+                                                    id="email"
+                                                    autoComplete="off"
+                                                    placeholder="abc@abc.com"
+                                                    aria-invalid={fieldState.invalid}
+                                                    className="pl-8"
+                                                />
+                                            </div>
+
                                             {fieldState && (
                                                 <FieldError>{fieldState.error?.message}</FieldError>
                                                 // <FieldError errors={[fieldState.error]}></FieldError>
@@ -99,13 +115,30 @@ export default function SignupForm() {
                                     render={({ field, fieldState }) =>
                                         <Field data-invalid={fieldState.invalid}>
                                             <FieldLabel htmlFor="password">Password<span className="text-red-500">*</span></FieldLabel>
-                                            <Input
-                                                {...field}
-                                                id="password"
-                                                autoComplete="off"
-                                                placeholder="******"
-                                                aria-invalid={fieldState.invalid}
-                                            />
+                                            <div className="relative flex items-center">
+                                                <Lock
+                                                    className="size-4.5 absolute left-2 text-gray-500"
+                                                />
+                                                <Input
+                                                    {...field}
+                                                    id="password"
+                                                    type={showPassword ? "text" : "password"}
+                                                    autoComplete="off"
+                                                    placeholder="Password"
+                                                    aria-invalid={fieldState.invalid}
+                                                    className="pl-8 pr-8"
+                                                />
+                                                <Button
+                                                    type="button"
+                                                    onClick={(e) => {
+                                                        e.preventDefault();     // stops form submit
+                                                        e.stopPropagation();    // stops bubbling to parent
+                                                        setShowPassowd(!showPassword)
+                                                    }}
+                                                    className="absolute right-0 text-gray-500 hover:text-black bg-transparent">
+                                                    {showPassword ? <Eye /> : <EyeOff />}
+                                                </Button>
+                                            </div>
                                             {fieldState && (
                                                 <FieldError>{fieldState.error?.message}</FieldError>
                                             )}
@@ -119,13 +152,30 @@ export default function SignupForm() {
                                     render={({ field, fieldState }) =>
                                         <Field data-invalid={fieldState.invalid}>
                                             <FieldLabel htmlFor="confirmPassword">Confirm Password<span className="text-red-500">*</span></FieldLabel>
-                                            <Input
-                                                {...field}
-                                                id="confirmPassword"
-                                                autoComplete="off"
-                                                placeholder="******"
-                                                aria-invalid={fieldState.invalid}
-                                            />
+                                            <div className="relative flex items-center">
+                                                <Lock
+                                                    className="size-4.5 absolute left-2 text-gray-500"
+                                                />
+                                                <Input
+                                                    {...field}
+                                                    id="confirmPassword"
+                                                    type={showConfirmPassword ? "text" : "password"}
+                                                    autoComplete="off"
+                                                    placeholder="Confirm password"
+                                                    aria-invalid={fieldState.invalid}
+                                                    className="pl-8 pr-8"
+                                                />
+                                                <Button
+                                                    type="button"
+                                                    onClick={(e) => {
+                                                        e.preventDefault();     // stops form submit
+                                                        e.stopPropagation();    // stops bubbling to parent
+                                                        setShowConfirmPassowd(!showConfirmPassword)
+                                                    }}
+                                                    className="absolute right-0 text-gray-500 hover:text-black bg-transparent">
+                                                    {showConfirmPassword ? <Eye /> : <EyeOff />}
+                                                </Button>
+                                            </div>
                                             {fieldState && (
                                                 <FieldError>{fieldState.error?.message}</FieldError>
                                             )}

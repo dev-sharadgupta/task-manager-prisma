@@ -10,11 +10,14 @@ import { toast } from "sonner";
 import { useLoginMutation } from "../api";
 import { useDispatch } from "react-redux";
 import { setUser } from "../slice";
+import { Eye, EyeOff, Lock, UserCircle2 } from "lucide-react";
+import { useState } from "react";
 
 export default function SigninForm() {
     const [login, { isLoading }] = useLoginMutation();
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const [showPassword, setShowPassowd] = useState(false);
 
     const form = useForm<SinginFormValue>({
         resolver: zodResolver(loginSchema),
@@ -32,7 +35,7 @@ export default function SigninForm() {
             dispatch(setUser(response.user));
 
             toast.success(response.message);
-            navigate("/landing");
+            navigate("/user-profile");
 
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
@@ -65,13 +68,19 @@ export default function SigninForm() {
                                     render={({ field, fieldState }) =>
                                         <Field data-invalid={fieldState.invalid}>
                                             <FieldLabel htmlFor="indetifier">Username or Email<span className="text-red-500">*</span></FieldLabel>
-                                            <Input
-                                                {...field}
-                                                id="identifier"
-                                                autoComplete="off"
-                                                placeholder="Username or Email"
-                                                aria-invalid={fieldState.invalid}
-                                            />
+                                            <div className="relative flex items-center">
+                                                <UserCircle2
+                                                    className="size-4.5 absolute left-2 text-gray-500"
+                                                />
+                                                <Input
+                                                    {...field}
+                                                    id="identifier"
+                                                    autoComplete="off"
+                                                    placeholder="Username or Email"
+                                                    aria-invalid={fieldState.invalid}
+                                                    className="pl-8"
+                                                />
+                                            </div>
                                             {fieldState.error && (
                                                 <FieldError>{fieldState.error.message}</FieldError>
                                             )}
@@ -85,13 +94,31 @@ export default function SigninForm() {
                                     render={({ field, fieldState }) =>
                                         <Field data-invalid={fieldState.invalid}>
                                             <FieldLabel htmlFor="password">Password<span className="text-red-500">*</span></FieldLabel>
-                                            <Input
-                                                {...field}
-                                                id="password"
-                                                autoComplete="off"
-                                                placeholder="Password"
-                                                aria-invalid={fieldState.invalid}
-                                            />
+
+                                            <div className="relative flex items-center">
+                                                <Lock
+                                                    className="size-4.5 absolute left-2 text-gray-500"
+                                                />
+                                                <Input
+                                                    {...field}
+                                                    id="password"
+                                                    type={showPassword ? "text" : "password"}
+                                                    autoComplete="off"
+                                                    placeholder="Password"
+                                                    aria-invalid={fieldState.invalid}
+                                                    className="pl-8 pr-8"
+                                                />
+                                                <Button
+                                                    type="button"
+                                                    onClick={(e) => {
+                                                        e.preventDefault();     // stops form submit
+                                                        e.stopPropagation();    // stops bubbling to parent
+                                                        setShowPassowd(!showPassword)
+                                                    }}
+                                                    className="absolute right-0 text-gray-500 hover:text-black bg-transparent">
+                                                    {showPassword ? <Eye /> : <EyeOff />}
+                                                </Button>
+                                            </div>
                                             {fieldState.error && (
                                                 <FieldError>{fieldState.error.message}</FieldError>
                                             )}
