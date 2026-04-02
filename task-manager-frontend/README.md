@@ -145,3 +145,7 @@ then Setup Redux Store --> src\_redux\store.ts
 then Create Typed Redux Hooks --> src\_redux\hooks.ts
 then Create API Endpoints --> src\_api\core\constants.ts
 then Crate APIs --> src\pages\auth\api\index.tsx
+
+
+## Step 14 : Implement Sidebar
+npx shadcn@latest add sidebar

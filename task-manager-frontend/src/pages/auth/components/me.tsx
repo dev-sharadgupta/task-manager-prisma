@@ -1,33 +1,9 @@
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { useLogoutMutation, useMeQuery } from "../api";
-import { LogOut, Mail, User } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { toast } from "sonner";
-import { useNavigate } from "react-router-dom";
-import { useAppDispatch } from "@/_redux/hooks";
-import { clearAuthenticated } from "../slice";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { useMeQuery } from "../api";
+import { Mail, User } from "lucide-react";
 
 export default function Me() {
     const { data, isLoading } = useMeQuery();
-    const [logout] = useLogoutMutation();
-    const navigate = useNavigate();
-    const dispatch = useAppDispatch();
-
-    const handleLogout = async () => {
-        try {
-            const response = await logout().unwrap();
-
-            // Set the Logout value false
-            dispatch(clearAuthenticated());
-
-            toast.success(response.message);
-            navigate("/auth/login");
-        }
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any 
-        catch (error: any) {
-            toast.error(error.message);
-        }
-    }
 
     if (isLoading) return <p>Loading...</p>;
 
@@ -35,7 +11,7 @@ export default function Me() {
         <div className="min-h-screen flex items-center justify-center bg-blue-50">
             <Card className="w-full max-w-md border-0 shadow-xl py-10 text-center space-y-5">
                 <CardHeader>
-                    <CardTitle className="text-3xl font-bold text-center text-blue-900">
+                    <CardTitle className="text-3xl font-bold text-cente">
                         User Profile
                     </CardTitle>
                     <CardDescription>
@@ -52,14 +28,6 @@ export default function Me() {
                         <p className="">{data?.user.email}</p>
                     </div>
                 </CardContent>
-                <CardFooter>
-                    <Button
-                        onClick={handleLogout}
-                        className="w-full p-5 flex items-center bg-red-500 hover:bg-red-600"
-                    >
-                        <LogOut />Logout
-                    </Button>
-                </CardFooter>
             </Card>
         </div>
     );

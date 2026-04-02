@@ -5,6 +5,7 @@ import Me from "./pages/auth/components/me";
 import Landing from "./pages/landing";
 import { ProtectedRoute } from "./routes/ProtectedRoute";
 import { PublicRoute } from "./routes/PublicRoute";
+import AppLayout from "./layouts/AppLayout";
 
 function App() {
 
@@ -18,8 +19,10 @@ function App() {
       </Route>
 
       <Route element={<ProtectedRoute />}>
-        <Route path="/user-profile" element={<Me />} />
-        <Route path="/landing" element={<Landing />} />
+        <Route element={<AppLayout />}>
+          <Route path="/user-profile" element={<Me />} />
+          <Route path="/landing" element={<Landing />} />
+        </Route>
       </Route>
 
     </Routes >
