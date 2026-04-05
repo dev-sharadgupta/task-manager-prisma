@@ -8,13 +8,12 @@
       "path": "./tsconfig.node.json"
     }
   ],
-  // "compilerOptions": {
-  //   "moduleResolution": "bundler",
-  //   "baseUrl": ".",
-  //   "paths": {
-  //     "@/*": [
-  //       "src/*"
-  //     ]
-  //   }
-  // }
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "src/*"
+      ]
+    }
+  }
 }
