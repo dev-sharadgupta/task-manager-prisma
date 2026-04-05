@@ -2,34 +2,23 @@ import { prisma } from "../../../../lib/prisma.js";
 import * as bcrypt from "bcrypt";
 import { StatusCodes } from "http-status-codes";
 import { APIError } from "../../../middlewares/errorHandler.js";
-
-export const signupUser = async (
-    username: string,
-    email: string,
-    password: string
-) => {
-
+export const signupUser = async (username, email, password) => {
     // Check if username already exists
     const existingUserName = await prisma.user.findUnique({
         where: { username },
     });
-
     if (existingUserName) {
         throw new APIError("Username already taken", StatusCodes.CONFLICT);
     }
-
     // Check if email already exists
     const existEmail = await prisma.user.findUnique({
         where: { email },
     });
-
     if (existEmail) {
         throw new APIError("Email already exists", StatusCodes.CONFLICT);
     }
-
     // hashed password
     const hashedPassword = await bcrypt.hash(password, 10);
-
     // Create User
     const user = await prisma.user.create({
         data: {
@@ -43,16 +32,9 @@ export const signupUser = async (
             email: true,
         },
     });
-
     return user;
 };
-
-
-export const loginUser = async (
-    identifier: string,
-    password: string
-) => {
-
+export const loginUser = async (identifier, password) => {
     // Find user by email or username
     const user = await prisma.user.findFirst({
         where: {
@@ -65,24 +47,17 @@ export const loginUser = async (
             password: true,
         }
     });
-
     if (!user) {
         throw new APIError("Invalid credentials", StatusCodes.NOT_FOUND);
     }
-
     // compare password
     const isPasswordValid = await bcrypt.compare(password, user.password);
-
     if (!isPasswordValid) {
         throw new APIError("Incorrect Password", StatusCodes.NOT_FOUND);
     }
-
     return user;
 };
-
-export const getUserById = async (
-    userId: number
-) => {
+export const getUserById = async (userId) => {
     const user = await prisma.user.findUnique({
         where: {
             id: userId
@@ -93,10 +68,9 @@ export const getUserById = async (
             email: true
         }
     });
-
     if (!user) {
         throw new APIError("User Not found", StatusCodes.NOT_FOUND);
     }
-
     return user;
-}
+};
+//# sourceMappingURL=auth.service.js.map
