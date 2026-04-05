@@ -10,3 +10,4 @@ const adapter = new PrismaMariaDb({
 });
 const prisma = new PrismaClient({ adapter });
 export { prisma };
+//# sourceMappingURL=prisma.js.map
