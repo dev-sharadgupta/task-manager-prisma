@@ -1,4 +1,11 @@
-node_modules
+# dependencies
+node_modules/
+
+# env
 .env
-generated
-build
+
+# build outputs
+build/
+
+# prisma generated client
+generated/
